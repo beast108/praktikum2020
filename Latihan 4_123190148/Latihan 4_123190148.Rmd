@@ -1,0 +1,76 @@
+---
+title: "Latihan 4"
+author: "123190148_Adrianus Wisnu"
+date: "6/10/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+## Modul 4
+
+Hal pertama yang dilakukan adalah mengetikkan perintah dibawah pada console untuk mengakses library dslabs dan data murders
+
+```{r}
+library(dslabs)
+data("murders")
+```
+1. Gunakan operator aksesor ($) untuk mengakses variabel populasi dan menyimpannya pada objek baru “pop”. Kemudian gunakan fungsi sort untuk mengurutkan variabel “pop”. Pada langkah terakhir, gunakan operator ([) untuk menampilkan nilai populasi terkecil. 
+```{r}
+pop=murders$population
+sort(pop)
+```
+
+menampilkan nilai populasi terkecil dengan operator [].
+```{r}
+minimum=sort(pop,decreasing=FALSE)
+minimum[1]
+```
+
+2. Tampilkan indeks dari data yang memiliki nilai populasi terkecil. 
+Petunjuk : gunakan fungsi order.
+```{r}
+indexkecil=order(pop)
+indexkecil[1]
+```
+
+3. Dengan fungsi which.min, Tulis satu baris kode yang dapat menampilkan hasil yang sama dengan langkah diatas.
+```{r}
+which.min(pop)
+```
+4. Tampilkan nama negara yang memiliki populasi terkecil.
+```{r}
+murders$state[which.min(pop)]
+```
+
+5. Membuat data frame baru menggunakan fungsi rank untu menentukan peringkat populasi dari tiap negara bagian, simpan hasi pemeringkatan di objek baru "ranks" dan data frame baru dengan nama "my_df".
+```{r}
+ranks=rank(pop)
+my_df=data.frame(state=murders$state, rank = ranks)
+my_df
+```
+
+6. Mengurutkan my_df dengan fungsi order agar data yang ditampilkan merupakan data terurut.
+Petunjuk : buat objek "ind" yang akan menyimpan indeks yang diperlukan dalam mengurutkan data populasi.
+```{r}
+ind=order(pop)
+my_df=data.frame(state=murders$state[ind], rank =ranks[ind], index=ind)
+my_df
+```
+
+7. Membuat plot yang memvisualisasikan total pembunuhan terhadap populasi dan mengidentifikasi hubungan antara keduanya.
+```{r}
+population_in_milion=log10(murders$population)
+total_gun_murders=murders$total
+plot(population_in_milion, total_gun_murders)
+```
+
+8. Membuat histogram dari populasi negara bagian.
+```{r}
+hist(population_in_milion)
+```
+
+9. Membuat boxplot dari populasi negara bagian berdasarkan wilayahnya.
+```{r}
+boxplot(population_in_milion~region,data=murders)
+```
