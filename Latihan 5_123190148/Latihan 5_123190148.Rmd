@@ -1,0 +1,72 @@
+---
+title: "DS-5"
+author: "123190148_Adrianus Wisnu"
+date: "10/27/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+
+## TUGAS PERTEMUAN 5
+
+```{r}
+library(dslabs)
+data(murders)
+```
+
+1. Fungsi nchar dapat digunakan untuk menghitung jumlah karakter dari suatu vektor karakter.
+Buatlah satu baris kode yang akan menyimpan hasil komputasi pada variabel ‘new_names’
+dan berisi singkatan nama negara ketika jumlah karakternya lebih dari 8 karakter.
+```{r}
+new_names = ifelse(nchar(murders$state)>8, murders$abb, murders$state)
+print(new_names)
+```
+
+2. Buat fungsi sum_n yang dapat digunakan untuk menghitung jumlah bilangan bulat dari 1
+hingga n. Gunakan pula fungsi ini untuk menentukan jumlah bilangan bulat dari 1 hingga
+5.000.
+```{r}
+sum_n = function(n){ 
+  x = 1:n
+  sum(x)
+}
+sum_n(5000)
+```
+3. Buat fungsi compute_s_n yang dapat digunakan untuk menghitung jumlah Sn = 1^2 + 2^2 + 3^2 + ..... n2. Tampilkan hasil penjumlahan ketika n = 10.
+```{r}
+compute_s_n = function(n){ 
+  x <- 1:n 
+  sum(x^2) 
+} 
+compute_s_n(10)
+```
+
+4. Buat vektor numerik kosong dengan nama: s_n dengan ukuran:25 menggunakan s_n =
+vector ("numeric", 25).
+```{r}
+compute_s_n = function(n){
+  x = 1:n
+  sum(x^2)
+}
+# Membuat vektor kosong
+s_n = vector("numeric", 25)
+# Menyimpan hasil komputasi dengan FOR-LOOP
+for(i in 1:25){
+  s_n[i] = compute_s_n(i)
+}
+```
+
+5. Ulangi langkah pada soal no. 4 dan gunakan fugsi sapply.
+```{r}
+compute_s_n = function(n){
+  x = 1:n
+  sum(x^2)
+}
+# Membuat vektor kosong
+s_n = vector("numeric", 25)
+# Fungsi Sapply
+n = 1:25
+s_n = sapply(n, compute_s_n)
+
+```
