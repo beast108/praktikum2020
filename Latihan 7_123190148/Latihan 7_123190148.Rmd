@@ -1,0 +1,54 @@
+---
+title: "Latihan 7_12310148"
+author: "123190148_Adrianus Wisnu"
+date: "10/10/2021"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+## Modul 7 Latihan
+
+1. Gunakan as_tibble untuk mengkonversi tabel dataset “US murders” dalam bentuk tibble dan menyimpannya dalam objek baru bernama ‘murders_tibble'.
+```{r}
+library(dslabs)
+library(dplyr)
+library(tidyverse)
+data(murders)
+as_tibble(murders) %>% class()
+murders_tibble = as_tibble(murders) %>% class() 
+```
+
+2. Gunakan fungsi group_by untuk mengkonversi dataset “US murders” menjadi sebuah tibble yang dikelompokkan berdasarkan ‘region.
+```{r}
+as_tibble(murders) %>% group_by(region)
+```
+
+3. Gunakan operator pipe sehingga setiap fungsi dapat dipanggil tanpa menambahkan argumen.Gunakan dot operator untuk mengakses populasi. 
+
+```{r}
+data(murders)
+murders %>% 
+pull(population) %>% 
+log %>%
+mean %>% 
+exp
+```
+
+4. Gunakan map_df untuk membuat data frame yang terdiri dari tiga kolom: ‘n’, ‘s_n’, dan 's_n_2’. Kolom pertama harus berisi angka 1 hingga 100. Kolom kedua dan ketiga masingmasing harus berisi penjumlahan 1 hingga n, dimana n menyatakan jumlah baris.
+```{r}
+library(purrr)
+compute_s_n = function(n)
+  {x = 1:n 
+   sum(x) 
+  } 
+n = 1:100 
+s_n = sapply(n, compute_s_n)
+compute_s_n = function(n)
+  {x = 1:n 
+   tibble(sum = sum(x)) 
+  } 
+s_n = map_df(n, compute_s_n)
+as_tibble(s_n)
+```
